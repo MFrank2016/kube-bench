@@ -1,0 +1,25 @@
+---
+controls:
+version: "gke 1.0"
+id: 6
+text: "Managed Services"
+type: "managedservices"
+groups:
+  - id: 6.1
+    text: "Image Registry and Image Scanning"
+    checks:
+      - id: 6.1.1
+        text: "Ensure Image Vulnerability Scanning using GCR Container Analysis
+        or a third-party provider (Scored)"
+        audit: "gcloud services list --enabled --filter containerregistry"
+        tests:
+          test_items:
+            - flag: "Container Scanning API"
+              compare:
+                op: has
+                value: "Container Scanning API"
+              set: true
+        remediation: |
+          Using Command Line:
+            gcloud services enable containerscanning.googleapis.com
+        scored: true
